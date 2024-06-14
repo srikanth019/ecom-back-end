@@ -4,8 +4,7 @@ const { getProductsPipeline } = require("../utils/products.utils");
 const { errorResponse } = require("../utils/response.utils");
 
 const addProduct = async (req) => {
-    const productData = await createProduct(req.body)
-    return productData;
+    return await createProduct(req.body)
 };
 
 const fetchAllProductsWithPagination = async (req) => {
@@ -36,7 +35,7 @@ const updateProduct = async (req) => {
     const productData = req.body
     const result = await UpdateProduct(id, productData)
     if (!result) {
-        throw errorResponse(httpsStatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch product");
+        throw errorResponse(httpsStatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update product");
     }
     return result;
 }
@@ -45,7 +44,7 @@ const deleteProduct = async (req) => {
     const { id } = req.params;
     const result = await DeleteProduct(id)
     if (!result) {
-        throw errorResponse(httpsStatusCodes.INTERNAL_SERVER_ERROR, "Couldn't fetch product");
+        throw errorResponse(httpsStatusCodes.INTERNAL_SERVER_ERROR, "Couldn't delete product");
     }
     return result;
 }

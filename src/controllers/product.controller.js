@@ -1,11 +1,10 @@
 const { httpsStatusCodes } = require('../constants/http-status-codes');
-const { Product } = require('../models/index');
 const productService = require("../services/product.service");
 const { successResponse } = require('../utils/response.utils');
 
 exports.createProduct = async (req, res, next) => {
     try {
-        const addProductRes = await productService.addProduct(req, res, next);
+        const addProductRes = await productService.addProduct(req);
         return successResponse(res, httpsStatusCodes.SUCCESS, "PRODUCT_CREATED_SUCCESSFULLY", addProductRes)
     } catch (error) {
         next(error);
@@ -14,7 +13,7 @@ exports.createProduct = async (req, res, next) => {
 
 exports.fetchAllProductsWithPagination = async (req, res, next) => {
     try {
-        const products = await productService.fetchAllProductsWithPagination(req, res, next);
+        const products = await productService.fetchAllProductsWithPagination(req);
         return successResponse(res, httpsStatusCodes.SUCCESS, "PRODUCTS_FETCHED_SUCCESSFULLY", products)
     } catch (error) {
         console.log(/error/, error);
