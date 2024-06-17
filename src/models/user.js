@@ -20,6 +20,9 @@ const userSchema = new Schema({
         required: true,
         default: 'user'
     },
+    profileImage: {
+        type: String
+    },
     addresses: {
         type: [Schema.Types.Mixed]
     },

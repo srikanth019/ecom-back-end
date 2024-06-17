@@ -7,6 +7,7 @@ const addProduct = async (req) => {
     return await createProduct(req.body)
 };
 
+//TODO: Need to add delete filter based on user role
 const fetchAllProductsWithPagination = async (req) => {
     const pipeline = getProductsPipeline(req)
     const [result] = await getAllProductsWithPagination(pipeline)
