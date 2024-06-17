@@ -10,3 +10,13 @@ exports.createUser = async (req, res, next) => {
         next(error);
     }
 }
+
+//get user information
+exports.fetchUser = async (req, res, next) => {
+    try {
+        const user = await userService.fetchUser(req);
+        return successResponse(res, httpsStatusCodes.SUCCESS, "USER_FETCHED_SUCCESSFULLY", user)
+    } catch (error) {
+        next(error);
+    }
+}

@@ -7,18 +7,9 @@ const createUser = async (payload) => {
     }
 };
 
-const getAllProductsWithPagination = async (payload) => {
+const findUserById = async (payload) => {
     try {
-        return await Product.aggregate(payload);
-    } catch (error) {
-        // logger.error("error: ", error);
-        throw new Error(error);
-    }
-};
-
-const productById = async (payload) => {
-    try {
-        return await Product.findById(payload);
+        return await User.findById(payload).select("-password");
     } catch (error) {
         // logger.error("error: ", error);
         throw new Error(error);
@@ -53,4 +44,4 @@ const DeleteProduct = async (id) => {
     }
 }
 
-module.exports = { createUser, findUserByEmail, }
+module.exports = { createUser, findUserByEmail, findUserById }

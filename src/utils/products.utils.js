@@ -1,7 +1,8 @@
 const { PRODUCTS_PER_PAGE } = require("../constants/global.constants");
+const { Brand } = require("../models");
 
 exports.getProductsPipeline = (req) => {
-    let { _page, _limit, _sort, _order, category, band, search } = req.query;
+    let { _page, _limit, _sort, _order, category, brand, search } = req.query;
 
     // Convert _page and _limit to integers (default values if not provided)
     _page = parseInt(_page) || 1;
@@ -11,10 +12,16 @@ exports.getProductsPipeline = (req) => {
     // Match stage for filtering and text search
     let filter = {};
     if (category) {
-        filter.category = category;
+        if (typeof category === 'string') {
+            category = [category];
+        }
+        filter.category = { $in: category };
     }
-    if (band) {
-        filter.band = band;
+    if (brand) {
+        if (typeof brand === 'string') {
+            brand = [brand];
+        }
+        filter.brand = { $in: brand };
     }
     if (search) {
         filter.$or = [

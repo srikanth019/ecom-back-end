@@ -1,5 +1,5 @@
 const { httpsStatusCodes } = require("../constants/http-status-codes");
-const { createUser, findUserByEmail } = require("../repositories/user.repository");
+const { createUser, findUserByEmail, findUserById } = require("../repositories/user.repository");
 const { errorResponse } = require("../utils/response.utils");
 
 const addUser = async (req) => {
@@ -14,4 +14,13 @@ const addUser = async (req) => {
     return userData;
 };
 
-module.exports = { addUser };
+const fetchUser = async (req) => {
+    const { id } = req.params;
+    const user = await findUserById(id)
+    if (!user) {
+        throw errorResponse(httpsStatusCodes.NOT_FOUND, "USER_NOT_FOUND");
+    }
+    return user;
+}
+
+module.exports = { addUser, fetchUser };
