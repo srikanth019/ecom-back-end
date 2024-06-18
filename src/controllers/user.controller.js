@@ -20,3 +20,13 @@ exports.fetchUser = async (req, res, next) => {
         next(error);
     }
 }
+
+//get users information
+exports.fetchUsers = async (req, res, next) => {
+    try {
+        const user = await userService.fetchAll(req);
+        return successResponse(res, httpsStatusCodes.SUCCESS, "USER_FETCHED_SUCCESSFULLY", user)
+    } catch (error) {
+        next(error);
+    }
+}

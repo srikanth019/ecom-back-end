@@ -28,7 +28,15 @@ const userSchema = new Schema({
     },
     // TODO:  We can make a separate Schema for this
     orders: { type: [Schema.Types.Mixed] }
-});
+},
+    {
+        timestamps: {
+            createdAt: "created_at",
+            updatedAt: "updated_at",
+            deletedAt: "deleted_at"
+        }
+    }
+);
 
 userSchema.pre("find", function (next) {
     // hide password key while fetching users
@@ -51,18 +59,5 @@ userSchema.pre('save', async function (next) {
 userSchema.methods.isPasswordCorrect = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
-
-
-// const virtual = userSchema.virtual('id');
-// virtual.get(function () {
-//     return this._id;
-// });
-// userSchema.set('toJSON', {
-//     virtuals: true,
-//     versionKey: false,
-//     transform: function (doc, ret) {
-//         delete ret._id;
-//     },
-// });
 
 exports.User = mongoose.model('User', userSchema);

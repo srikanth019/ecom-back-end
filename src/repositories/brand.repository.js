@@ -18,4 +18,6 @@ const fetchAllBrands = async (payload) => {
     }
 }
 
+
+
 module.exports = { createBrand, fetchAllBrands }

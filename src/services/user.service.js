@@ -1,5 +1,5 @@
 const { httpsStatusCodes } = require("../constants/http-status-codes");
-const { createUser, findUserByEmail, findUserById } = require("../repositories/user.repository");
+const { createUser, findUserByEmail, findUserById, fetchUsers } = require("../repositories/user.repository");
 const { errorResponse } = require("../utils/response.utils");
 
 const addUser = async (req) => {
@@ -23,4 +23,17 @@ const fetchUser = async (req) => {
     return user;
 }
 
-module.exports = { addUser, fetchUser };
+const fetchAll = async (req) => {
+    const { role } = req.query;
+    let filter = { role: "user" }
+    if (role === "admin") {
+        filter = { role: "admin" }
+    }
+    const user = await fetchUsers(filter)
+    if (!user) {
+        throw errorResponse(httpsStatusCodes.NOT_FOUND, "USER_NOT_FOUND");
+    }
+    return user;
+}
+
+module.exports = { addUser, fetchUser, fetchAll }; 

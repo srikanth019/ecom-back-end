@@ -26,6 +26,16 @@ const findUserByEmail = async (email) => {
     }
 }
 
+//find user by email
+const fetchUsers = async (filter) => {
+    try {
+        return await User.find(filter);
+    } catch (error) {
+        // logger.error("error: ", error);
+        throw new Error(error);
+    }
+}
+
 const UpdateProduct = async (id, data) => {
     try {
         return await Product.findOneAndUpdate({ _id: id }, data, { new: true });
@@ -44,4 +54,4 @@ const DeleteProduct = async (id) => {
     }
 }
 
-module.exports = { createUser, findUserByEmail, findUserById }
+module.exports = { createUser, findUserByEmail, findUserById, fetchUsers }
