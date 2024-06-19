@@ -1,5 +1,5 @@
 const { httpsStatusCodes } = require("../constants/http-status-codes");
-const { createUser, findUserByEmail, findUserById, fetchUsers } = require("../repositories/user.repository");
+const { createUser, findUserByEmail, findUserById, fetchUsers, updateUser } = require("../repositories/user.repository");
 const { errorResponse } = require("../utils/response.utils");
 
 const addUser = async (req) => {
@@ -36,4 +36,14 @@ const fetchAll = async (req) => {
     return user;
 }
 
-module.exports = { addUser, fetchUser, fetchAll }; 
+const update = async (req) => {
+    const { id } = req.params;
+    const userData = req.body
+    const result = await updateUser(id, userData)
+    if (!result) {
+        throw errorResponse(httpsStatusCodes.INTERNAL_SERVER_ERROR, "Couldn't update product");
+    }
+    return result;
+}
+
+module.exports = { addUser, fetchUser, fetchAll, update }; 

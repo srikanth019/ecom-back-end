@@ -30,3 +30,13 @@ exports.fetchUsers = async (req, res, next) => {
         next(error);
     }
 }
+
+//update user
+exports.updateUser = async (req, res, next) => {
+    try {
+        const user = await userService.update(req);
+        return successResponse(res, httpsStatusCodes.SUCCESS, "USER_UPDATED_SUCCESSFULLY", user)
+    } catch (error) {
+        next(error);
+    }
+}

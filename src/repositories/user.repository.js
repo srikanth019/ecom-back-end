@@ -36,9 +36,9 @@ const fetchUsers = async (filter) => {
     }
 }
 
-const UpdateProduct = async (id, data) => {
+const updateUser = async (id, data) => {
     try {
-        return await Product.findOneAndUpdate({ _id: id }, data, { new: true });
+        return await User.findOneAndUpdate({ _id: id }, data, { new: true });
     } catch (error) {
         // logger.error("error: ", error);
         throw new Error(error);
@@ -47,11 +47,11 @@ const UpdateProduct = async (id, data) => {
 
 const DeleteProduct = async (id) => {
     try {
-        return await Product.findByIdAndDelete(id);
+        return await User.findByIdAndDelete(id);
     } catch (error) {
         // logger.error("error: ", error);
         throw new Error(error);
     }
 }
 
-module.exports = { createUser, findUserByEmail, findUserById, fetchUsers }
+module.exports = { createUser, findUserByEmail, findUserById, fetchUsers, updateUser }
